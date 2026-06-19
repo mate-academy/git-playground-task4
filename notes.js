@@ -39,6 +39,18 @@ function main() {
       }
       break;
     }
+    case "edit": {
+      const id = Number(rest[0]);
+      const text = rest.slice(1).join(" ").trim();
+      const ok = store.edit(id, text);
+      if (ok){
+        console.log(`Updated note #${id}`);
+      }
+      else{
+        console.log("Note #${id} not found");
+      }
+      break;
+    }
     case "delete": {
       const id = Number(rest[0]);
       const ok = store.remove(id);
@@ -46,7 +58,7 @@ function main() {
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | edit <id> <text> | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
