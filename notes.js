@@ -1,4 +1,5 @@
-#!/usr/bin/env node
+#!/usr/bin/bash node
+
 const store = require("./lib/store");
 const config = require("./lib/config");
 
