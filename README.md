@@ -23,4 +23,4 @@ Goal: open the `review-me` pull request, have Claude review it, and judge whethe
 3. **Have Claude review it.** Ask: *"Review this PR — look for bugs, edge cases, and anything risky."*
 4. **Judge the review.** One bug was planted on purpose. Did Claude catch it? Note what it flagged and whether it found the real problem.
 5. **Comment.** Add a one-line comment on the PR saying whether Claude caught the bug.
-6. **Submit** the pull request link.
+6. **Open** the pull request against the main repository, not your fork.
