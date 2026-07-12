@@ -48,6 +48,8 @@ function main() {
     default:
       console.log("Commands: add <text> | list | search <term> | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
+console.log("Task4");
+
   }
 }
 
