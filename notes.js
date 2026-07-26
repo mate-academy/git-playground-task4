@@ -5,6 +5,15 @@ const config = require("./lib/config");
 const [command, ...rest] = process.argv.slice(2);
 
 function main() {
+  try {
+    run();
+  } catch (err) {
+    console.error(`Error: ${err.message}`);
+    process.exitCode = 1;
+  }
+}
+
+function run() {
   switch (command) {
     case "add": {
       const text = rest.join(" ").trim();
@@ -29,6 +38,10 @@ function main() {
     }
     case "search": {
       const term = rest.join(" ").trim();
+      if (!term) {
+        console.log("Usage: notes search <term>");
+        return;
+      }
       const found = store.search(term);
       if (found.length === 0) {
         console.log(`No notes match "${term}"`);
@@ -42,12 +55,20 @@ function main() {
     case "edit": {
       const id = Number(rest[0]);
       const text = rest.slice(1).join(" ").trim();
-      store.edit(id, text);
-      console.log(`Updated note #${id}`);
+      if (!Number.isInteger(id) || !text) {
+        console.log("Usage: notes edit <id> <new text>");
+        return;
+      }
+      const ok = store.edit(id, text);
+      console.log(ok ? `Updated note #${id}` : `No note #${id} found`);
       break;
     }
     case "delete": {
       const id = Number(rest[0]);
+      if (!Number.isInteger(id)) {
+        console.log("Usage: notes delete <id>");
+        return;
+      }
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
