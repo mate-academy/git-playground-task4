@@ -45,8 +45,19 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
+    case "diff": {
+      const [idA, idB] = rest.map(Number);
+      const result = store.diff(idAC, idB);
+      if (!result) {
+        console.log("One or both note ids don't exist");
+        return;
+      }
+      console.log(`+ ${result.added.join(" ") || "(nothing added)"}`);
+      console.log(`- ${result.removed.join(" ") || "(nothing removed)"}`);
+      break;
+    }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | diff <id1> <id2>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
