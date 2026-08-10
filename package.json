@@ -1,5 +1,8 @@
 {
+
   "name": "notes-cli",
+
+
   "version": "1.0.0",
   "description": "A tiny command-line notes tool — practice repo for Unit 4, Lesson 4.",
   "bin": { "notes": "notes.js" },
