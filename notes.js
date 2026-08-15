@@ -4,6 +4,11 @@ const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
 
+// Available commands:
+//   add <text>     - Create a new note with the given text and save it to the store.
+//   list           - Print all saved notes, showing each note's id and text.
+//   search <term>  - Print notes whose text matches the given search term.
+//   delete <id>    - Remove the note with the given id from the store.
 function main() {
   switch (command) {
     case "add": {
