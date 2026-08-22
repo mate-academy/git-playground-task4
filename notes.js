@@ -47,7 +47,8 @@ function main() {
     }
     case "count": {
       const notes = store.all();
-      console.log(`You have ${notes.length} notes`);
+      const plural = notes.length === 1 ? "note" : "notes";
+      console.log(`You have ${notes.length} ${plural}`);
       break;
     }
     default:
