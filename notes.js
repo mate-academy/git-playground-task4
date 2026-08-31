@@ -39,14 +39,33 @@ function main() {
       }
       break;
     }
+    case "edit": {
+      const id = Number(rest[0]);
+      if (Number.isNaN(id)) {
+        console.log(`Invalid note id: ${rest[0]}`);
+        return;
+      }
+      const text = rest.slice(1).join(" ").trim();
+      if (!text) {
+        console.log("Usage: notes edit <id> <new text>");
+        return;
+      }
+      const ok = store.edit(id, text);
+      console.log(ok ? `Updated note #${id}` : `No note #${id} found`);
+      break;
+    }
     case "delete": {
       const id = Number(rest[0]);
+      if (Number.isNaN(id)) {
+        console.log(`Invalid note id: ${rest[0]}`);
+        return;
+      }
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | edit <id> <text> | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
