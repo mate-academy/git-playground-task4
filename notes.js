@@ -41,6 +41,10 @@ function main() {
     }
     case "edit": {
       const id = Number(rest[0]);
+      if (Number.isNaN(id)) {
+        console.log(`Invalid note id: ${rest[0]}`);
+        return;
+      }
       const text = rest.slice(1).join(" ").trim();
       if (!text) {
         console.log("Usage: notes edit <id> <new text>");
@@ -52,6 +56,10 @@ function main() {
     }
     case "delete": {
       const id = Number(rest[0]);
+      if (Number.isNaN(id)) {
+        console.log(`Invalid note id: ${rest[0]}`);
+        return;
+      }
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
