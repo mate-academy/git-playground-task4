@@ -51,6 +51,10 @@ function main() {
       break;
     }
     case "delete": {
+      if (!rest[0]) {
+        console.log("Usage: notes delete <id>");
+        return;
+      }
       const id = Number(rest[0]);
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
