@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { matches } = require("../lib/store");
+const { matches, add, edit, remove } = require("../lib/store");
 
 const notes = [
   { id: 1, text: "buy milk" },
@@ -23,4 +23,21 @@ test("search finds a single containing note", () => {
 test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
+});
+
+test("edit updates the text of an existing note", () => {
+  const note = add("original text");
+  try {
+    const ok = edit(note.id, "updated text");
+    assert.strictEqual(ok, true);
+  } finally {
+    remove(note.id);
+  }
+});
+
+test("edit returns false and does not throw for a non-existent id", () => {
+  assert.doesNotThrow(() => {
+    const ok = edit(999999, "irrelevant");
+    assert.strictEqual(ok, false);
+  });
 });
