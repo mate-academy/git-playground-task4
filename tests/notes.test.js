@@ -28,6 +28,11 @@ test("search returns nothing when no note contains the term", () => {
   assert.strictEqual(result.length, 0);
 });
 
+test("search is case-insensitive", () => {
+  const result = matches(notes, "MILK");
+  assert.strictEqual(result.length, 2);
+});
+
 // add/edit/remove persist to notes.json on disk, so back it up and restore
 // it around every test to avoid clobbering real data or leaking state
 // between tests.

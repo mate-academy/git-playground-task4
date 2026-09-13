@@ -4,6 +4,22 @@ const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
 
+// Parses the id argument for edit/delete. Prints `usage` and returns null
+// if it's missing or not a positive integer, so callers never hand a NaN
+// id down to the store.
+function parseId(raw, usage) {
+  if (raw === undefined) {
+    console.log(usage);
+    return null;
+  }
+  const id = Number(raw);
+  if (!Number.isInteger(id) || id <= 0) {
+    console.log(`Invalid id "${raw}". ${usage}`);
+    return null;
+  }
+  return id;
+}
+
 function main() {
   switch (command) {
     case "add": {
@@ -40,7 +56,10 @@ function main() {
       break;
     }
     case "edit": {
-      const id = Number(rest[0]);
+      const id = parseId(rest[0], "Usage: notes edit <id> <new text>");
+      if (id === null) {
+        return;
+      }
       const text = rest.slice(1).join(" ").trim();
       if (!text) {
         console.log("Usage: notes edit <id> <new text>");
@@ -51,7 +70,10 @@ function main() {
       break;
     }
     case "delete": {
-      const id = Number(rest[0]);
+      const id = parseId(rest[0], "Usage: notes delete <id>");
+      if (id === null) {
+        return;
+      }
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
