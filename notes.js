@@ -47,8 +47,11 @@ function main() {
       break;
     }
     case "delete": {
+      // Parse note ID from first argument
       const id = Number(rest[0]);
+      // Remove note and capture success status
       const ok = store.remove(id);
+      // Display result: success or not found
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
