@@ -24,3 +24,13 @@ test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
 });
+
+test("search is case-insensitive", () => {
+  const result = matches(notes, "MILK");
+  assert.strictEqual(result.length, 2);
+});
+
+test("search does not throw when the term is undefined or null", () => {
+  assert.strictEqual(matches(notes, undefined).length, notes.length);
+  assert.strictEqual(matches(notes, null).length, notes.length);
+});
