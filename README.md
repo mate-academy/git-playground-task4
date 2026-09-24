@@ -33,3 +33,4 @@ Goal: open the `review-me` pull request, have Claude review it, and judge whethe
 5. **Comment.** Add a one-line comment on the PR saying whether Claude caught the bug.
 6. **Resolve.** Resolve the conflict with main and push.
 7. **Open** the pull request against the main repository, not your fork.
+s
