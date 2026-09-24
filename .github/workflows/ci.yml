@@ -2,6 +2,8 @@ name: CI
 
 # Runs on pull requests — it checks the change on the branch.
 on:
+  push:
+    branches: [main]
   pull_request:
 
 jobs:

@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const store = require("./lib/store");
-const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
 
@@ -29,6 +28,10 @@ function main() {
     }
     case "search": {
       const term = rest.join(" ").trim();
+      if (!term) {
+        console.log("Usage: notes search <term>");
+        return;
+      }
       const found = store.search(term);
       if (found.length === 0) {
         console.log(`No notes match "${term}"`);
@@ -39,15 +42,29 @@ function main() {
       }
       break;
     }
+    case "edit": {
+      const id = Number(rest[0]);
+      const text = rest.slice(1).join(" ").trim();
+      if (!Number.isInteger(id) || !text) {
+        console.log("Usage: notes edit <id> <new text>");
+        return;
+      }
+      const ok = store.edit(id, text);
+      console.log(ok ? `Updated note #${id}` : `No note #${id} found`);
+      break;
+    }
     case "delete": {
       const id = Number(rest[0]);
+      if (!Number.isInteger(id)) {
+        console.log("Usage: notes delete <id>");
+        return;
+      }
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
-      console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
+      console.log("Commands: add <text> | list | search <term> | edit <id> <text> | delete <id>");
   }
 }
 
