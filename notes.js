@@ -42,6 +42,10 @@ function main() {
     case "edit": {
       const id = Number(rest[0]);
       const text = rest.slice(1).join(" ").trim();
+      if (Number.isNaN(id)) {
+        console.log("Usage: notes edit <id> <new text>");
+        return;
+      }
       if (!text) {
         console.log("Usage: notes edit <id> <new text>");
         return;
