@@ -42,8 +42,12 @@ function main() {
     case "edit": {
       const id = Number(rest[0]);
       const text = rest.slice(1).join(" ").trim();
-      store.edit(id, text);
-      console.log(`Updated note #${id}`);
+      if (!text) {
+        console.log("Usage: notes edit <id> <new text>");
+        return;
+      }
+      const ok = store.edit(id, text);
+      console.log(ok ? `Updated note #${id}` : `No note #${id} found`);
       break;
     }
     case "delete": {
