@@ -1,7 +1,11 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { matches, editNote } = require("../lib/store");
+const fs = require("node:fs");
+const os = require("node:os");
+const path = require("node:path");
+
+const { matches, editNote, loadFrom } = require("../lib/store");
 
 const notes = [
   { id: 1, text: "buy milk" },
@@ -36,4 +40,19 @@ test("editNote returns false and changes nothing for a missing id", () => {
   assert.strictEqual(editNote(list, 999, "b"), false);
   assert.strictEqual(editNote(list, NaN, "b"), false);
   assert.strictEqual(list[0].text, "a");
+});
+
+test("loadFrom returns an empty store when the file does not exist", () => {
+  const file = path.join(os.tmpdir(), `notes-missing-${process.pid}.json`);
+  assert.deepStrictEqual(loadFrom(file), { nextId: 1, notes: [] });
+});
+
+test("loadFrom throws on corrupt JSON instead of returning an empty store", () => {
+  const file = path.join(os.tmpdir(), `notes-corrupt-${process.pid}.json`);
+  fs.writeFileSync(file, "{ not json");
+  try {
+    assert.throws(() => loadFrom(file), /invalid JSON/);
+  } finally {
+    fs.rmSync(file, { force: true });
+  }
 });
