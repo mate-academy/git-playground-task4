@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { matches } = require("../lib/store");
+const { matches, diffNotes } = require("../lib/store");
 
 const notes = [
   { id: 1, text: "buy milk" },
@@ -23,4 +23,16 @@ test("search finds a single containing note", () => {
 test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
+});
+
+test("diffNotes reports words added and removed between two notes", () => {
+  const result = diffNotes(notes[0], notes[2]);
+  assert.deepStrictEqual(result.added, ["the", "almonds"]);
+  assert.deepStrictEqual(result.removed, ["buy"]);
+});
+
+test("diffNotes reports no differences for identical notes", () => {
+  const result = diffNotes(notes[0], notes[0]);
+  assert.deepStrictEqual(result.added, []);
+  assert.deepStrictEqual(result.removed, []);
 });
