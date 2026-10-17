@@ -1,4 +1,4 @@
-# Unit 4 Git playground — Lesson 4
+# Unit 4 Git playground — Lesson 4.0
 
 A tiny command-line notes tool, used as the practice repo for Unit 4, Lesson 4 (reviewing code). This repo has a branch called `review-me` with a small change on it — and a bug planted in that change on purpose. Your job is to have Claude review it and see whether it catches the bug.
 
