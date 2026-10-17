@@ -4,6 +4,11 @@ const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
 
+// Available commands:
+//   add <text>     - Create a new note with the given text and save it to the store.
+//   list           - Print all saved notes, showing each note's id and text.
+//   search <term>  - Print notes whose text matches the given search term.
+//   delete <id>    - Remove the note with the given id from the store.
 function main() {
   switch (command) {
     case "add": {
@@ -29,6 +34,10 @@ function main() {
     }
     case "search": {
       const term = rest.join(" ").trim();
+      if (!term) {
+        console.log("Usage: notes search <term>");
+        return;
+      }
       const found = store.search(term);
       if (found.length === 0) {
         console.log(`No notes match "${term}"`);
@@ -41,6 +50,10 @@ function main() {
     }
     case "delete": {
       const id = Number(rest[0]);
+      if (!rest[0] || Number.isNaN(id)) {
+        console.log("Usage: notes delete <id>");
+        return;
+      }
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
