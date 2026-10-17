@@ -3,6 +3,7 @@ name: CI
 # Runs on pull requests — it checks the change on the branch.
 on:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
