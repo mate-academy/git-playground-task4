@@ -30,6 +30,6 @@ Goal: open the `review-me` pull request, have Claude review it, and judge whethe
 2. **Open the PR.** Ask Claude: *"Open a pull request for the `review-me` branch."*
 3. **Have Claude review it.** Ask: *"Review this PR — look for bugs, edge cases, and anything risky."*
 4. **Judge the review.** One bug was planted on purpose. Did Claude catch it? Note what it flagged and whether it found the real problem.
-5. **Comment.** Add a one-line comment on the PR saying whether Claude caught the bug.
+5. **Write your note.** Write one line in the PR description saying whether Claude caught the bug. Do not put it in a comment: the AI mentor reads only the description.
 6. **Resolve.** Resolve the conflict with main and push.
 7. **Open** the pull request against the main repository, not your fork.
