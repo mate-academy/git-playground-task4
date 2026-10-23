@@ -1,7 +1,7 @@
 # Unit 4 Git playground — Lesson 4
 
 A tiny command-line notes tool, used as the practice repo for Unit 4, Lesson 4 (reviewing code). This repo has a branch called `review-me` with a small change on it — and a bug planted in that change on purpose. Your job is to have Claude review it and see whether it catches the bug.
-
+force a change
 ### The app
 - `node notes.js add <text>` — add a note
 - `node notes.js list` — list all notes
