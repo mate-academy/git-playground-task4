@@ -6,9 +6,10 @@ A tiny command-line notes tool, used as the practice repo for Unit 4, Lesson 4 (
 - `node notes.js add <text>` — add a note
 - `node notes.js list` — list all notes
 - `node notes.js search <term>` — list notes containing a term
+- `node notes.js edit <id> <text>` — replace a note's text
 - `node notes.js delete <id>` — delete a note
 
-Layout: `notes.js` is the entry point, `lib/store.js` loads, saves, and searches notes, `lib/config.js` holds settings, and `tests/` holds the test suite (`npm test`).
+Layout: `notes.js` is the entry point, `lib/store.js` loads, saves, and searches notes, and `tests/` holds the test suite (`npm test`).
 
 ### Set up
 1. Make sure you have your own copy of this repo (created from the lesson on the platform). On the GitHub fork page, **uncheck "Copy the `main` branch only"** before you click Create fork, otherwise `review-me` will not come across.
