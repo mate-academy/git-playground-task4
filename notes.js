@@ -31,7 +31,7 @@ function main() {
       const term = rest.join(" ").trim();
       const found = store.search(term);
       if (found.length === 0) {
-        console.log(`No notes match "${term}"`);
+        console.log(`No notes match term:  "${term}"`);
         return;
       }
       for (const note of found) {
