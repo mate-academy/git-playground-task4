@@ -24,3 +24,21 @@ test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
 });
+
+test("edit returns false for an unknown id", () => {
+  const store = require("../lib/store");
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const file = path.join(__dirname, "..", "notes.json");
+  const backup = fs.existsSync(file) ? fs.readFileSync(file) : null;
+  try {
+    fs.writeFileSync(file, JSON.stringify({ nextId: 2, notes: [{ id: 1, text: "a" }] }));
+    assert.strictEqual(store.edit(99, "x"), false);
+    assert.strictEqual(store.edit(NaN, "x"), false);
+    assert.strictEqual(store.edit(1, "b"), true);
+    assert.strictEqual(store.all()[0].text, "b");
+  } finally {
+    if (backup) fs.writeFileSync(file, backup);
+    else fs.rmSync(file, { force: true });
+  }
+});
