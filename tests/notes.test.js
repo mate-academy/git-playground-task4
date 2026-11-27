@@ -24,3 +24,8 @@ test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
 });
+
+test("edit returns false for a note that does not exist", () => {
+  const { edit } = require("../lib/store");
+  assert.strictEqual(edit(999999, "new text"), false);
+});
